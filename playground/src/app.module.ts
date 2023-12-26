@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorEntity } from './entities/author.entity';
 import { TopicEntity } from './entities/topic.entity';
-import { ProfileEntity } from './entities/profile.entity';
+import { CommentEntity } from './entities/comment.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([TopicEntity, AuthorEntity, ProfileEntity]),
+    TypeOrmModule.forFeature([AuthorEntity, TopicEntity, CommentEntity]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -16,7 +16,7 @@ import { ProfileEntity } from './entities/profile.entity';
       username: 'test',
       password: 'test',
       database: 'test',
-      entities: [TopicEntity, AuthorEntity, ProfileEntity],
+      entities: [AuthorEntity, TopicEntity, CommentEntity],
       synchronize: true,
     }),
   ],

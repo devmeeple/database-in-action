@@ -30,6 +30,7 @@
 - 식별자를 제외한 대상은 같은 값을 가지면 안 된다.
 - PK(기본키)는 행을 식별하는 유일한 식별자다.
   ![Identifier](images/identifier.png)
+
     - 후보키(candidate key)는 식별자가 될 수 있는 대상들이다.
     - 중복키
 
@@ -43,3 +44,18 @@
 - 1:N(일대다) one-to-many
 - M:M(다대다) many-to-many
 
+## 논리적 데이터 모델링
+
+> 개념적 데이터 모델링(선행작업)이 잘 되어있다면 논리적 데이터 모델링을 수월하게 할 수 있다.
+
+관계형 데이터베이스 환경에 맞게 데이터 형식을 정리하는 작업을 의미한다.
+
+### Mapping Rule
+
+- Entity -> Table
+- Attribute -> Column
+- Relation -> PK, FK
+
+FK(외래키)가 없는 테이블을 먼저 작성한다.
+
+> TypeORM: nullable 옵션의 기본값 false

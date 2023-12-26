@@ -1,29 +1,25 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TopicEntity } from './topic.entity';
-import { ProfileEntity } from './profile.entity';
 
 @Entity('author')
 export class AuthorEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({
+    length: 15,
+  })
   name: string;
 
-  @Column()
-  city: string;
+  @Column({
+    length: 100,
+  })
+  profile: string;
 
-  @OneToMany(() => TopicEntity, (topic) => topic.author)
-  topics: TopicEntity[];
-
-  @OneToOne(() => ProfileEntity, (profile) => profile.author)
-  @JoinColumn()
-  profile: ProfileEntity;
+  @CreateDateColumn()
+  createdAt: Date;
 }
