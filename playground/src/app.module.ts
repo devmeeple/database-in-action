@@ -5,10 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthorEntity } from './entities/author.entity';
 import { TopicEntity } from './entities/topic.entity';
 import { CommentEntity } from './entities/comment.entity';
+import { DormantEntity } from './entities/dormant.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([AuthorEntity, TopicEntity, CommentEntity]),
+    TypeOrmModule.forFeature([
+      AuthorEntity,
+      TopicEntity,
+      CommentEntity,
+      DormantEntity,
+    ]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -16,7 +22,7 @@ import { CommentEntity } from './entities/comment.entity';
       username: 'test',
       password: 'test',
       database: 'test',
-      entities: [AuthorEntity, TopicEntity, CommentEntity],
+      entities: [AuthorEntity, TopicEntity, CommentEntity, DormantEntity],
       synchronize: true,
     }),
   ],
