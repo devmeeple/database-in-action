@@ -1,11 +1,10 @@
 # SQL in Action
 
 - SQL 첫걸음
+    - [JOIN](JOIN.md)
+    - [RDB Data Modeling](MODELING.md)
 - SQL 레벨업
 - Real MySQL 1편
-
-
-- [JOIN](JOIN.md)
 
 ## 실행방법
 
