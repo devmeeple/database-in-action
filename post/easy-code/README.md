@@ -30,3 +30,34 @@ SET attribute = value [, attribute = value, ..] -- 열 = 값, 열 = 값
 ```sql
 DELETE FROM table_name [WHERE condition(s)];
 ```
+
+
+###  데이터 조회하기(SELECT)
+
+SELECT로 조회할 때 조건을 포함해서 조회한다면 조건과 관련된 속성에 `index`가 걸려있어야 한다. 그렇지 않다면 데이터가
+많아질수록 조회 속도가 느려진다.
+
+```sql
+SELECT attribute(s)
+FROM table(s)
+[WHERE condition(s)] 
+```
+
+AS
+
+- 테이블이나  attribute(속성)에 별칭(Alias)를 붙일 때 사용, 생략 가능
+
+DISTINCT
+
+- SELECT 결과에서 중복되는 튜플을 제외할 때 사용
+
+LIKE
+
+- LIKE: 문자열 pattern matching
+- reserved character: `%` 0개 이상의 임의의 개수를 가지는 문자를 의미
+- `_`: 하나의 문자를 의미
+- escape character: `\`: 예약 문자를 escape 처리하여 본연의 문자로 사용
+
+*(Asterisk)
+
+- 선택된 튜플에 모든 attributes를 보여주고 싶을 때 사용

@@ -47,3 +47,55 @@ DELETE FROM employee WHERE id = 8;
 
 # 회사에 사정 상 모든 프로젝트가 취소됐다.
 # DELETE FROM project;
+
+# 데이터 조회
+# ID가 9인 임직원의 이름과 직군 조회
+SELECT name, position FROM employee WHERE id = 9;
+
+# 프로젝트 2002를 리딩하는 임직원의 ID, 이름, 직군
+# SELECT employee.id, employee.name, employee.position
+# FROM project, employee
+# WHERE project.id = 2002 AND project.leader_id = employee.id
+
+# AS 사용하기
+# SELECT e.id, e.name, e.position
+# FROM project AS p, employee AS e
+# WHERE p.id = 2002 AND p.leader_id = e.id;
+
+# SELECT e.id AS leader_id, e.name AS leader_name, e.position
+# FROM project AS p, employee AS e
+# WHERE p.id = 2002 AND p.leader_id = e.id;
+
+# DISTINCT 사용하기
+# 디자이너들이 참여하고 있는 프로젝트의 ID와 이름을 알고 싶다
+# SELECT DISTINCT p.id, p.name
+# FROM employee AS e, works_on AS w, project AS p
+# WHERE e.position = 'DSGN'
+#   AND    e.id = w.empl_id AND w.proj_id = p.id;
+
+# LIKE
+# 이름이 N으로 시작하거나 N으로 끝나는 임직원들의 이름 조회
+SELECT name
+FROM employee
+WHERE name LIKE 'N%' OR name LIKE '%N';
+
+# 이름에 NG가 들어가는 임직원들의 이름 조회
+SELECT name
+FROM employee
+WHERE name LIKE '%NG%';
+
+# 이름이 J로 시작하는, 총 4글자의 이름을 가지는 임직원의 이름 조회
+SELECT name
+FROM employee
+WHERE name LIKE 'J____';
+# WHERE name LIKE '%J' AND LENGTH(name) = 4;
+
+# Escape 문자와 함께 LIKE 사용하기
+# %로 시작하거나 _로 끝나는 프로젝트 이름 조회
+# SELECT name
+# FROM project
+# WHERE name LIKE '\%%' OR name LIKE '%\_';
+
+# *(Asterisk) 사용하기
+# ID가 9인 임직원의 모든 attributes
+SELECT * FROM employee WHERE id = 9;
