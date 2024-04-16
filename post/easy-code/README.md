@@ -61,3 +61,25 @@ LIKE
 *(Asterisk)
 
 - 선택된 튜플에 모든 attributes를 보여주고 싶을 때 사용
+
+### 쿼리 안의 쿼리(subquery)
+
+서브쿼리(subquery)
+
+- subquery(nested query 또는 inner query): SELECT, INSERT, UPDATE, DELETE에 포함된 query
+- outer query(main query): sub query를 포함하는 query
+- subquery는 ()안에 기술됨
+- v IN (v1, v2, v3, ...): v가 (v1, v2, v3, ....) 중에 하나와 값이 같다면 TRUE를 반환
+  - (v1, v2, v3, ...)는 명시적인 값들의 집합이거나 subquery의 결과(set or multiset)일 수도 있음
+  - v NOT IN (v1, v2, v3, ...): v가 (v1, v2, v3, ...) 의 모든 값과 값이 다르다면 TRUE를 반환 
+
+- correlated query: subquery 바깥쪽 query의 attribute를 참조할 때, correlated subquery라고 지칭
+- EXISTS: subquery의 결과가 최소 하나의 row라도 있다면 TRUE 반환
+- NOT EXISTS: subquery의 결과가 단 하나의 row도 없다면 TRUE 반환
+
+IN, EXISTS는 서로 바꿔가며 사용가능하다.
+
+- v comparison_operator ANY (subquery): subquery가 반환한 결과들 중에 단 하나라도 v와의 비교 연산이 TRUE라면 TRUE를 반환한다.
+- `SOME`, `ANY`와 같은 역할
+
+v comparison_operator ALL (subquery): subquery가 반환한 결과들과 v와의 비교 연산이 모두 TRUE라면 TRUE를 반환

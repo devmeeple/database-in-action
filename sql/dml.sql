@@ -99,3 +99,75 @@ WHERE name LIKE 'J____';
 # *(Asterisk) 사용하기
 # ID가 9인 임직원의 모든 attributes
 SELECT * FROM employee WHERE id = 9;
+
+# subquery 쿼리를 한번에 사용하기
+# ID가 14인 임직원보다 생일이 빠른 임직원의 ID, 이름, 생일 조회(기존에 알고있던 방법으로는 두번에 나눠서 작성해야함)
+# SELECT birth_date FROM employee WHERE id = 14;
+# SELECT id, name, birth_date FROM employee WHERE birth_date < '1992-08-04';
+SELECT id, name, birth_date FROM employee
+WHERE birth_date < (
+    SELECT birth_date FROM employee WHERE id = 14
+    );
+
+# ID가 1인 임직원과 같은 부서 같은 성별인 임직원들의 ID와 이름과 직군 조회
+SELECT id, name, position
+FROM employee
+WHERE (dept_id, sex) = (
+SELECT dept_id, sex
+FROM employee
+WHERE id = 1
+);
+
+# ID가 5인 임직원과 같은 프로젝트에 참여한 임직원들의 ID
+
+# 1) 두번에 나눠서 조회하기
+# SELECT proj_id FROM works_on WHERE empl_id = 5; 임직원이 일하고 있는 프로젝트를 조회
+# SELECT DISTINCT empl_id
+# FROM works_on
+# WHERE empl_id != 5 AND (proj_id = 2001 OR proj_id = 2002);
+
+# 2) 개선하기
+# SELECT DISTINCT empl_id
+# FROM works_on
+# WHERE empl_id != 5 AND proj_id IN (2001, 2002);
+
+# 3) 서브쿼리 사용
+# SELECT DISTINCT empl_id FROM works_on
+# WHERE empl_id != 5 AND proj_id IN
+# (SELECT proj_id FROM works_on WHERE empl_id = 5);
+
+# ID가 7 또는 12인 임직원이 참여한 프로젝트 ID와 이름 조회
+# SELECT p.id, p.name
+# FROM project AS p
+# WHERE EXISTS (
+#     SELECT *
+#     FROM works_on AS w
+#     WHERE w.proj_id = p.id AND w.empl_id IN (7, 12)
+# );
+
+# 2000년대생이 없는 부서의 ID와 이름을 조회
+# SELECT d.id, d.name
+# FROM department AS d
+# WHERE NOT EXISTS(
+#     SELECT *
+#     FROM employee e AS e
+#     WHERE e.dept_id = d.id AND e.birth_date >= '2000-01-01'
+# );
+
+# 리더보다 높은 연봉을 받는 부서원을 가진 리더의 ID, 이름, 연봉 조회
+# SELECT e.id, e.name, e.salary
+# FROM department AS d, employee AS e
+# WHERE d.leader_id = e.id AND e.salary < ANY (
+#     SELECT salary
+#     FROM employee
+#     WHERE id <> d.leader_id AND dept_id = e.dept_id
+# );
+
+# ID가 13인 임직원과 한번도 같은 프로젝트에 참여하지 못한 임직원들의 ID, 이름, 직군 조회
+# SELECT DISTINCT id, e.name, e.position
+# FROM employee AS e, works_on AS w
+# WHERE e.id = w.empl_id AND w.proj_id <> ALL(
+#     SELECT proj_id
+#     FROM works_on
+#     WHERE empl_id = 13
+# );

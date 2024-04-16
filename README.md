@@ -2,6 +2,8 @@
 
 특정 기술에 상관없이 사용되는 SQL 기본기 쌓기
 
+## 진행순서
+
 - [시니어 백엔드 개발자가 알려주는 데이터베이스 개론 & SQL](./post/easy-code/README.md) (4.15 ~ )
 - [SQL 첫걸음](https://product.kyobobook.co.kr/detail/S000001057649)
     - [JOIN](JOIN.md)
