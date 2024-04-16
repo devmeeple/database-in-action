@@ -83,3 +83,13 @@ IN, EXISTS는 서로 바꿔가며 사용가능하다.
 - `SOME`, `ANY`와 같은 역할
 
 v comparison_operator ALL (subquery): subquery가 반환한 결과들과 v와의 비교 연산이 모두 TRUE라면 TRUE를 반환
+
+### three-valued logic
+
+SQL에서 `NULL`이란 `unkown`, `unavailable or withheld`, `not applicable`을 의미한다. (알려지지 않음, 사용할 수 없음, 해당사항 없음)
+
+- SQL에서 NULL과 비교 연산을 하게 되면 결과는 `unknown`이다.
+  -TRUE 일 수도 있고 FALSE 일 수도 있다는 의미다.
+- three-valued logic: 비교/논리 연산의 결과로 TRUE, FALSE, UNKNOWN을 가진다.
+
+WHERE 절의 조건은 결과가 TRUE인 행만 선택된다. 즉 결과가 FALSE, UNKNOWN 이면 선택되지 않는다. 
