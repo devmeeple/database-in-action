@@ -92,4 +92,101 @@ SQL에서 `NULL`이란 `unkown`, `unavailable or withheld`, `not applicable`을 
   -TRUE 일 수도 있고 FALSE 일 수도 있다는 의미다.
 - three-valued logic: 비교/논리 연산의 결과로 TRUE, FALSE, UNKNOWN을 가진다.
 
-WHERE 절의 조건은 결과가 TRUE인 행만 선택된다. 즉 결과가 FALSE, UNKNOWN 이면 선택되지 않는다. 
+WHERE 절의 조건은 결과가 TRUE인 행만 선택된다. 즉 결과가 FALSE, UNKNOWN 이면 선택되지 않는다.
+
+### 테이블 조인(JOIN)
+
+두 개 이상의 테이블에 데이터를 한 번에 조회하는 방법이다. 여러 종류의 `JOIN`이 존재한다.
+
+`implicit join` VS `explicit join`
+
+```sql
+SELECT d.name
+FROM employee AS e, department AS d
+WHERE e.id = 1 AND e.dept_id = d.id;
+```
+
+- `implicit join`이란 `FROM`절에는 테이블을 나열하고 `WHERE`절에 `JOIN CONDITION`을 명시하는 방식이다.
+  - old-style join syntax
+- `WHERE`절에 `SELECTION CONDITION`과 `JOIN CONDITION`이 같이 있기 때문에 가독성이 떨어진다.
+- 복잡한 `JOIN` 쿼리를 작성하다 보면 실수할 가능성이 높다.
+
+```sql
+SELECT d.name
+FROM employee AS e JOIN department AS d ON e.dept_id = d.id
+WHERE e.id = 1;
+```
+
+- `explicit join`이란 `FROM`절에 `JOIN` 키워드와 함께 연결 테이블을 명시하는 방식이다.
+- `FROM`절에서 `ON` 뒤에 `CONDITION`이 명시된다.
+- 가독성이 좋다.
+- 복잡한 `JOIN`쿼리 작성에 비교적 유리하다.
+
+INNER JOIN, OUTER JOIN
+
+INNER JOIN
+
+```sql
+FROM 테이블1 [INNER] JOIN 테이블2 ON 조건
+```
+
+- `INNER JOIN`은 `JOIN CONDITION`을 만족하는 행들로 결과 테이블을 만든다.
+- `JOIN CONDITION`에 사용가능한 연산자(operator): =, <, >, <> 등 여러 비교 연산자
+- `JOIN CONDITION`에서 `NULL`값을 가지는 행은 결과 테이블에 포함하지 않는다.
+
+OUTER JOIN
+
+```sql
+FROM 테이블1 LEFT [OUTER] JOIN 테이블2 ON 조건
+FROM 테이블1 RIGHT [OUTER] JOIN 테이블2 ON 조건
+FROM 테이블1 FULL [OUTER] JOIN 테이블2 ON 조건
+```
+
+- `JOIN CONDITION`을 만족하지 않는 행도 포함하여 결과 테이블을 만든다.
+- `JOIN CONDITION`에 사용가능한 연산자(operator): =, <, >, <> 등 여러 비교 연산자
+
+EQUI JOIN
+
+- `JOIN CONDITION`에 =(equality comparator)를 사용하는 `JOIN`을 의미한다.
+- 이때 `EQUI JOIN`을 바라보는 두 가지 시각이 존재한다.
+  - INNER, OUTER JOIN 구분없이 =를 사용한 JOIN 이라면 EQUI JOIN을 의미한다.
+  - INNER JOIN으로 한정해서 =를 사용한 경우에만 EQUI JOIN을 의미한다.
+
+USING
+
+```sql
+FROM 테이블1 [INNER] JOIN 테이블2 USING(열 이름...)
+FROM 테이블1 LEFT [OUTER] JOIN 테이블2 USING(열 이름...)
+FROM 테이블1 RIGHT [OUTER] JOIN 테이블2 USING(열 이름...)
+FROM 테이블1 FULL [OUTER] JOIN 테이블2 USING(열 이름...)
+```
+
+- 테이블을 `EQUI JOIN`할 때 조인하는 열 이름이 같다면 `USING` 키워드를 사용하여 간단하게 작성할 수 있다.
+- 이 때 같은 열 이름은 결과 테이블에서 한번만 표시된다.
+
+NATURAL JOIN
+
+```sql
+FROM 테이블1 NATURAL [INNER] JOIN 테이블2
+FROM 테이블1 NATURAL LEFT [OUTER] JOIN 테이블2
+FROM 테이블1 NATURAL RIGHT [OUTER] JOIN 테이블2
+FROM 테이블1 NATURAL FULL [OUTER] JOIN 테이블2
+```
+
+- 같은 이름을 가지는 모든 `attribute pair`에 대해서 `EQUI JOIN`을 수행
+- `JOIN CONDITION`을 따로 명시하지 않음
+
+CROSS JOIN
+
+- 테이블의 `tuple pair`로 만들 수 있는 모든 조합(=Cartesian product)를 결과 테이블로 반환한다.
+- `JOIN CONDITION`을 따로 명시하지 않음
+- `IMPLICIT CROSS JOIN`: FROM 테이블1, 테이블2
+- `EXPLICIT CROSS JOIN`: FROM 테이블1 CROSS JOIN 테이블2
+
+> - MySQL에서는 CROSS JOIN = INNER JOIN = JOIN 이다.
+> - CROSS JOIN에 ON(or USING) 키워드를 사용하면 INNER JOIN 으로 동작한다.
+> - INNER JOIN(or JOIN)이 ON(or USING) 없이 사용되면 CROSS JOIN으로 동작한다.
+
+SELF JOIN
+
+- 자기 자신에게 `JOIN`하는 경우

@@ -171,3 +171,16 @@ WHERE id = 1
 #     FROM works_on
 #     WHERE empl_id = 13
 # );
+
+# ID가 1003인 부서에 속하는 임직원 중 리더를 제외한 부서원의 이름 ID, 이름, 연봉 조회
+# SELECT e.name, e.id, e.salary
+# FROM employee AS e INNER JOIN department AS d ON e.dept_id = d.id
+# WHERE e.dept_id = 1003 AND e.id <> d.leader_id;
+
+# ID가 2001인 프로젝트에 참여한 임직원들의 이름과 직군과 소속부서 이름을 조회
+# SELECT e.name AS empl_name,
+#        e.position AS empl_position,
+#        d.name AS dept_name
+# FROM works_on AS w JOIN employee AS e ON w.empl_id = e.id
+# LEFT JOIN department AS d ON e.dept_id = d.id
+# WHERE w.proj_id = 2001;
