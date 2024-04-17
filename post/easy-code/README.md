@@ -190,3 +190,39 @@ CROSS JOIN
 SELF JOIN
 
 - 자기 자신에게 `JOIN`하는 경우
+
+### 그룹(GROUPING), 집계(Aggregate function), 정렬하기(ordering)
+
+ORDER BY
+
+- 조회 결과를 특정 열 기준으로 정렬할 때 사용
+- 기본 정렬은 ASC(오름차순) / DESC(내림차순)
+
+AGGREGATE
+
+- 여러 행(튜플) 정보를 요약해서 하나의 값으로 추출하는 함수
+- `COUNT`, `SUM`, `MAX`, `MIN`, `AVG`
+- **NULL 값을 제외하고** 요약 값을 추출
+
+GROUP BY
+
+- 관심있는 열을 기준으로 그룹을 나눠서 그룹별로 집계 함수를 적용하고 싶을 때 사용
+- grouping attribute(s): 그룹을 나누는 기준이 되는 열
+- grouping attribute(s)에 NULL 값이 있다면 NULL 값을 가지는 행끼리 묶인다
+
+HAVING
+
+- GROUP BY와 함께 사용
+- 집계 함수 결과값을 바탕으로 그룹을 필터링 하고싶을때 사용
+- `HAVING`절에 명시된 조건을 만족하는 그룹만 결과에 포함된다
+
+SELECT 실행 순서(개념): 실제 실행 순서는 각 RDBMS 구현에 따라 다르다.
+
+```sql
+SELECT 열 OR 집계함수 6
+FROM 테이블명 1
+[WHERE 조건] 2
+[GROUP BY 그룹 열] 3
+[HAVING 그룹 조건] 4
+[ORDER BY 열] 5
+```

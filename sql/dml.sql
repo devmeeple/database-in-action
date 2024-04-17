@@ -184,3 +184,58 @@ WHERE id = 1
 # FROM works_on AS w JOIN employee AS e ON w.empl_id = e.id
 # LEFT JOIN department AS d ON e.dept_id = d.id
 # WHERE w.proj_id = 2001;
+
+# 임직원의 정보를 연봉 순서대로 정렬
+SELECT * FROM employee ORDER BY dept_id ASC, salary DESC;
+
+# 임직원의 수 조회
+SELECT COUNT(*) FROM employee;
+
+# 프로젝트에 2002에 참여한 임직원 수, 최대연봉, 최소연봉, 평균연봉
+# SELECT COUNT(*), MAX(e.salary), MAX(e.salary), AVG(e.salary)
+# FROM employee AS e
+# INNER JOIN works_on AS w
+# ON e.id = w.empl_id
+# WHERE w.proj_id = 2002;
+
+# 각 프로젝트에 참여한 임직원 수, 최대연봉, 최소연봉, 평균연봉
+# SELECT w.proj_id, COUNT(*), MAX(e.salary), MAX(e.salary), AVG(e.salary)
+# FROM employee AS e
+# INNER JOIN works_on AS w
+# ON e.id = w.empl_id
+# GROUP BY w.proj_id;
+
+# 프로젝트 참여 인원이 7명 이상인 프로젝트들에 대해서 각 프로젝트에 참여한 임직원 수, 최대연봉, 최소연봉, 평균연봉
+# SELECT w.proj_id, COUNT(*), MAX(e.salary), MIN(e.salary), AVG(e.salary)
+# FROM employee AS e
+# INNER JOIN works_on AS w
+# ON e.id = w.empl_id
+# GROUP BY w.proj_id
+# HAVING COUNT(*) >= 7;
+
+# 각 부서별 인원수를 인원 수가 많은 순서대로 정렬
+SELECT dept_id, COUNT(*) AS empl_count
+FROM employee
+GROUP BY dept_id
+ORDER BY empl_count DESC;
+
+# 각 부서별 - 성별 인원수를 인원수가 만은 순서대로 정렬
+SELECT dept_id, sex, COUNT(*) AS empl_count
+FROM employee
+GROUP BY dept_id, sex
+ORDER BY empl_count DESC;
+
+# 회사 전체 평균 연봉보다 평균연봉이 적은 부서들의 평균 연봉
+SELECT dept_id, AVG(salary)
+FROM employee
+GROUP BY dept_id
+HAVING AVG(salary) < (SELECT AVG(salary) FROM employee);
+
+# 각 프로젝트 별로 프로젝트에 참여한 90년생들의 수와 이들의 평균 연봉
+# SELECT w.proj_id, COUNT(*), ROUND(AVG(e.salary), 0)
+# FROM works_on AS w
+# JOIN employee AS e
+# ON w.empl_id = e.id
+# WHERE e.birth_date BETWEEN '1990-01-01' AND '1999-12-31'
+# GROUP BY w.proj_id
+# ORDER BY w.proj_id;
