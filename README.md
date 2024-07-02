@@ -4,7 +4,7 @@
 
 ## 진행순서
 
-- [시니어 백엔드 개발자가 알려주는 데이터베이스 개론 & SQL](./post/easy-code/README.md) (4.15 ~ )
+- [시니어 백엔드 개발자가 알려주는 데이터베이스 개론 & SQL](posts/easy-code/README.md) (4.15 ~ )
 - [SQL 첫걸음](https://product.kyobobook.co.kr/detail/S000001057649)
     - [JOIN](JOIN.md)
     - [RDB Data Modeling](MODELING.md)
