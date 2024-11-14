@@ -8,3 +8,4 @@ DBMS에 상관없이 데이터베이스 지식을 쌓고 정리한다. 가장 �
 - [『SQL 첫걸음』(아사이 아츠시, 한빛미디어,2015)](https://product.kyobobook.co.kr/detail/S000001057649)
 - [『SQL 레벨업』(미크, 한빛미디어, 2016)](https://product.kyobobook.co.kr/detail/S000001057669)
 - [『Real MySQL 8.0 (1권)』(백은빈·이성욱, 위키북스, 2021)](https://product.kyobobook.co.kr/detail/S000001766482)
+- [커리어리 'SQL 학습 로드맵'](https://careerly.co.kr/comments/110776?utm_campaign=user-share)
