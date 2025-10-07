@@ -27,8 +27,8 @@
 ```sql
 SELECT 컬럼1,
        컬럼2, ...
-    FROM 테이블A
-    INNER JOIN 테이블11B
+FROM 테이블A
+INNER JOIN 테이블11B
 ON 테이블A.연결컬럼 = 테이블B.연결컬럼;
 ```
 
